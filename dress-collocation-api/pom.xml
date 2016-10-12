@@ -17,6 +17,11 @@
             <artifactId>com.dress.collocation.dao</artifactId>
             <version>${version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.dress.collocation</groupId>
+            <artifactId>com.dress.collocation.common</artifactId>
+            <version>${version}</version>
+        </dependency>
     </dependencies>
 
 

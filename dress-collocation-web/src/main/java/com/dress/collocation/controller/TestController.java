@@ -1,6 +1,7 @@
 package com.dress.collocation.controller;
 
 import com.dress.collocation.service.TestService;
+import com.dress.collocation.util.ResponseUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +20,15 @@ public class TestController {
     private TestService testService;
 
     @ResponseBody
-    @RequestMapping("test.do")
-    public String test() throws Exception {
-
-        return testService.testQuery();
+    @RequestMapping("test.app")
+    public Object test() throws Exception {
+        Object returnObj = null;
+        try {
+            String result = testService.testQuery();
+            returnObj = ResponseUtils.SuccessResponse(result);
+        } catch (Exception e) {
+            returnObj = ResponseUtils.systemError();
+        }
+        return returnObj;
     }
 }
