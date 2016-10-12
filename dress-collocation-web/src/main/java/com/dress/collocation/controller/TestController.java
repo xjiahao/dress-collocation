@@ -21,6 +21,7 @@ public class TestController {
     @ResponseBody
     @RequestMapping("test.do")
     public String test() throws Exception {
+
         return testService.testQuery();
     }
 }

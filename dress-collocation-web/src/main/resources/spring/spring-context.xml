@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config />
+    <context:component-scan base-package="com.dress.collocation"  />
+
+    <!--<bean id="PropertiesConfigurer"-->
+          <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--<value>classpath:properties/*.properties</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+     <!--&lt;!&ndash;SqlSessionFactory&ndash;&gt;-->
+    <!--<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource" />-->
+        <!--<property name="mapperLocations"-->
+            <!--value="classpath*:mybatis/mapper/UserMap.xml" />-->
+        <!--&lt;!&ndash;<property name="configLocation" value="classpath:mybatis-config.xml" />&ndash;&gt;-->
+    <!--</bean>-->
+
+     <!--&lt;!&ndash;Mybatis sql session&ndash;&gt;-->
+    <!--<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
+        <!--<constructor-arg index="0" ref="sqlSessionFactory" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; Mybatis mapper scanner, scans for java mapper &ndash;&gt;-->
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!--<property name="basePackage" value="com.dress.collocation.mapper" />-->
+        <!--<property name="sqlSessionTemplateBeanName" value="sqlSession" />-->
+    <!--</bean>-->
+</beans>
