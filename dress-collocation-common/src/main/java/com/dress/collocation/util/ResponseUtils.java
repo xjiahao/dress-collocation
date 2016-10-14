@@ -1,9 +1,11 @@
 package com.dress.collocation.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dress.collocation.exception.SystemBizException;
+import com.dress.collocation.exception.SystemSessionException;
 
 /**
- * Description:
+ * Description:请求返回封装
  * User:Xue jiahao (xuejiahao@raycloud.com)
  * Date: 16/10/12
  * Time: 15:29
@@ -26,13 +28,17 @@ public class ResponseUtils {
     /**
      * 业务操作错误信息返回
      *
-     * @param message message 错误信息
+     * @param e e 错误信息
      * @return
      */
-    public static JSONObject ErrorResponse(String message) {
+    public static JSONObject ErrorResponse(Exception e) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", 0);
-        jsonObject.put("message", message);
+        if(e instanceof SystemBizException || e instanceof SystemSessionException){
+            jsonObject.put("message", e.getMessage());
+        }else{
+            jsonObject.put("message", "系统错误");
+        }
         return jsonObject;
     }
 
