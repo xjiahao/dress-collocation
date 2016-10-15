@@ -9,17 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>com.dress.collocation.api</artifactId>
+    <artifactId>dress-collocation-api</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.dress.collocation</groupId>
-            <artifactId>com.dress.collocation.dao</artifactId>
+            <artifactId>dress-collocation-dao</artifactId>
             <version>${version}</version>
         </dependency>
         <dependency>
             <groupId>com.dress.collocation</groupId>
-            <artifactId>com.dress.collocation.common</artifactId>
+            <artifactId>dress-collocation-common</artifactId>
             <version>${version}</version>
         </dependency>
     </dependencies>
