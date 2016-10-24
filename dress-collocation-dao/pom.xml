@@ -10,12 +10,24 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>dress-collocation-dao</artifactId>
+
     <dependencies>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.3.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.4.2</version>
+        </dependency>
         <dependency>
             <groupId>com.dress.collocation</groupId>
             <artifactId>dress-collocation-common</artifactId>
             <version>${version}</version>
         </dependency>
     </dependencies>
+
 
 </project>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config/>
+    <context:component-scan base-package="com.dress.collocation"/>
+
+    <bean class="com.dress.collocation.task.MailSendTask" id="mailSendTask"/>
+    <!-- 邮件发送配置 -->
+    <bean id="mailSender" class="com.dress.collocation.propelling.mail.MailSender">
+        <property name="session" ref="mailSession"/>
+        <property name="userName" value="${mail.username}"/>
+        <property name="userNick" value="${mail.userNick}"/>
+    </bean>
+
+    <bean id="mailAuthenticator" class="com.dress.collocation.propelling.mail.MailAuthenticator">
+        <constructor-arg index="0" value="${mail.username}"/>
+        <constructor-arg index="1" value="${mail.password}"/>
+    </bean>
+
+    <bean id="mailSession" class="javax.mail.Session">
+        <constructor-arg index="0" type="java.util.Properties">
+            <props>
+                <prop key="mail.host">${mail.hostName}</prop>
+                <prop key="mail.username">${mail.username}</prop>
+                <prop key="mail.password">${mail.password}</prop>
+                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+                <prop key="mail.transport.protocol">${mail.transport.protocol}</prop>
+            </props>
+        </constructor-arg>
+        <constructor-arg index="1" ref="mailAuthenticator"/>
+    </bean>
+
+    <bean id="jedisConnFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.pool.host}" />
+        <property name="port" value="${redis.pool.port}" />
+        <property name="poolConfig" ref="jedisPoolConfig" />
+    </bean>
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+          p:connection-factory-ref="jedisConnFactory" />
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="${redis.pool.maxTotal}" />
+        <property name="maxIdle" value="${redis.pool.maxIdle}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${redis.pool.timeBetweenEvictionRunsMillis}" />
+        <property name="minEvictableIdleTimeMillis" value="${redis.pool.minEvictableIdleTimeMillis}" />
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />
+    </bean>
+
+
+</beans>

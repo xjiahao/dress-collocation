@@ -1,52 +1,102 @@
 package com.dress.collocation.pojo;
 
-import java.io.Serializable;
+import java.util.Date;
 
 /**
- * Created by admin on 2016/10/10.
+ * Description:
+ * Created by xuejiahao on 2016/10/22.
  */
-public class User implements Serializable{
-    private Long id;
-    private String name;
-    private Integer age;
-    private String address;
+public class User extends BasePojo {
 
-    public Long getId() {
-        return id;
+    private static final long serialVersionUID = 4907665512507513277L;
+    private Long userId;
+    private String userName;
+    private String userNick;
+    private String userPwd;
+    private String phoneNumber;
+    private String email;
+    private Integer sex;
+    private String attributes;
+    private Date gmtCreate;
+    private Date gmtUpdate;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getUserNick() {
+        return userNick;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setUserNick(String userNick) {
+        this.userNick = userNick;
     }
 
-    public String getAddress() {
-        return address;
+    public String getUserPwd() {
+        return userPwd;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
-    public String toString(){
-        if(name!=null){
-            return name;
-        }
-        return null;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(String attributes) {
+        this.attributes = attributes;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtUpdate() {
+        return gmtUpdate;
+    }
+
+    public void setGmtUpdate(Date gmtUpdate) {
+        this.gmtUpdate = gmtUpdate;
     }
 }

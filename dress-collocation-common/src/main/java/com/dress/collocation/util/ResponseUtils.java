@@ -53,4 +53,14 @@ public class ResponseUtils {
         jsonObject.put("data", object);
         return jsonObject;
     }
+
+    /**
+     * 正确信息返回
+     * @return
+     */
+    public static JSONObject SuccessResponse() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", 100);
+        return jsonObject;
+    }
 }
