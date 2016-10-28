@@ -17,6 +17,7 @@ public class User extends BasePojo {
     private String email;
     private Integer sex;
     private String attributes;
+    private Date lastLoginTime;
     private Date gmtCreate;
     private Date gmtUpdate;
 
@@ -98,5 +99,13 @@ public class User extends BasePojo {
 
     public void setGmtUpdate(Date gmtUpdate) {
         this.gmtUpdate = gmtUpdate;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }

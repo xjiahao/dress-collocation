@@ -1,22 +1,20 @@
 package com.dress.collocation.vo;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.validation.constraints.NotNull;
 
 /**
- * Description:
+ * Description:用户初始化vo
  * Created by xuejiahao on 2016/10/25.
  */
-public class UserInfoVo {
+public class InitUserInfoVo {
 
     @NotNull
     private Long userId;
-
+    @NotEmpty
     private String userNick;
-
-    private String email;
-
-    private String phoneNumber;
-
+    @NotNull
     private Integer sex;
 
     public Long getUserId() {
@@ -33,22 +31,6 @@ public class UserInfoVo {
 
     public void setUserNick(String userNick) {
         this.userNick = userNick;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public Integer getSex() {

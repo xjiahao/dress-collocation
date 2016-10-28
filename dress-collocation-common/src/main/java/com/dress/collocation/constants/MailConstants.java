@@ -11,4 +11,6 @@ public class MailConstants {
     public final static String REGISTER_TEMPLATE = "register.ftl";
 
     public final static int VERIFICATE_REGISTER = 1;
+
+    public final static int FIND_PWD_REGISTER = 2;
 }

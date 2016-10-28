@@ -35,4 +35,11 @@ public interface UserDao {
      * @param user
      */
     void updateUserByUserId(User user);
+
+    /**
+     * 根据用户id获取用户
+     * @param userId 用户名
+     * @return
+     */
+    User getUserByUserId(@Param("userId") Long userId);
 }

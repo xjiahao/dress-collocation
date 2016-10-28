@@ -77,7 +77,7 @@ public class RedisDao {
     public boolean set(String key, Object value,Long expireTime) {
         boolean result = false;
         try {
-            redisTemplate.opsForValue().set(key, value,expireTime,TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(key, value,expireTime,TimeUnit.MILLISECONDS);
             result = true;
         } catch (Exception e) {
             e.printStackTrace();
