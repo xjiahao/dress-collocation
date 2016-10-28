@@ -1,6 +1,8 @@
 package com.dress.collocation.service;
 
 
+import com.dress.collocation.pojo.User;
+import com.dress.collocation.vo.UserInfoVo;
 import com.dress.collocation.vo.UserRegisterVo;
 import freemarker.template.TemplateException;
 
@@ -27,4 +29,6 @@ public interface UserService {
      * @param userName 用户名
      */
     void registerGetVerificationCode(String userName) throws IOException, TemplateException, MessagingException;
+
+    void updateUserInfo(UserInfoVo userInfoVo);
 }

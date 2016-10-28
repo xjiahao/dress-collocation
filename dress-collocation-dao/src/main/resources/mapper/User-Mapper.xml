@@ -44,6 +44,21 @@
 
     </insert>
 
+    <update id="updateUserByUserId" parameterType="com.dress.collocation.pojo.User">
+        update sys_user
+        <set>
+            <if test="userName!=null">user_name=#{userName},</if>
+            <if test="userPwd!=null">user_pwd=#{userPwd},</if>
+            <if test="userNick!=null">user_nick=#{userNick},</if>
+            <if test="email!=null">email=#{email},</if>
+            <if test="phoneNumber!=null">phone_number=#{phoneNumber},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="attributes!=null">attributes=#{attributes},</if>
+            <if test="gmtCreate!=null">gmt_create=#{gmtCreate},</if>
+            <if test="gmtUpdate!=null">gmt_update=#{gmtUpdate},</if>
+        </set>
+    </update>
+
     <select id="getUserByUserName" resultMap="user">
         select
         <include refid="selectKey"/>

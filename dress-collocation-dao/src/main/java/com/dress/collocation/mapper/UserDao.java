@@ -29,4 +29,10 @@ public interface UserDao {
      * @return
      */
     Integer getCountByUserName(@Param("userName") String userName);
+
+    /**
+     * 根据用户id修改用户信息
+     * @param user
+     */
+    void updateUserByUserId(User user);
 }
