@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * Time: 22:35
  * Version: 1.0
  **/
-public class UserFindPwdVo {
+public class UserFindPwdVo extends BaseVo{
 
     @NotEmpty
     private String userName;

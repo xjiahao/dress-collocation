@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * Description:用户初始化vo
  * Created by xuejiahao on 2016/10/25.
  */
-public class InitUserInfoVo {
+public class InitUserInfoVo extends BaseVo{
 
     @NotNull
     private Long userId;

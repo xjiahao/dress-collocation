@@ -14,7 +14,7 @@ public interface UserDao {
      * 注册用户
      * @param user
      */
-    Long addUser(User user);
+    void addUser(User user);
 
     /**
      * 根据用于名获取用户对象

@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * Description:用户注册类
  * Created by xuejiahao on 2016/10/22.
  */
-public class UserRegisterVo {
+public class UserRegisterVo extends BaseVo{
 
     private Long userId;
     @Email

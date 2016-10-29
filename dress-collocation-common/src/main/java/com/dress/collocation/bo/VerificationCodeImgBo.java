@@ -1,4 +1,4 @@
-package com.dress.collocation.vo;
+package com.dress.collocation.bo;
 
 /**
  * Description:
@@ -7,7 +7,7 @@ package com.dress.collocation.vo;
  * Time: 23:07
  * Version: 1.0
  **/
-public class VerificationCodeImg {
+public class VerificationCodeImgBo {
 
     private String base64;
     private String verificationCode;

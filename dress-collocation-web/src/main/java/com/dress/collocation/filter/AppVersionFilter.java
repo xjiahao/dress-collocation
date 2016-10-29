@@ -8,6 +8,7 @@ import com.dress.collocation.util.ResponseUtils;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Description:AppVersion过滤器
@@ -23,12 +24,18 @@ public class AppVersionFilter implements Filter {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String appVersion = request.getParameter("appVersion");
         if (!AppVersionUtils.isAppVersion(appVersion)) {
             response.getWriter().write(ResponseUtils.systemError().toJSONString());
             return;
         }
+//        Map<String,Object> parameterMap = request.getParameterMap();
+//        if(parameterMap != null && parameterMap.containsKey("params")){
+//            Map<String,Object> params = (Map<String,Object>)parameterMap.get("params");
+//        }
+
         chain.doFilter(request, response);
     }
 

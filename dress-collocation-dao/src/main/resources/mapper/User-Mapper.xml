@@ -10,11 +10,12 @@
         <result column="phone_number" property="phoneNumber"/>
         <result column="sex" property="sex"/>
         <result column="attributes" property="attributes"/>
+        <result column="last_login_time" property="lastLoginTime"/>
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_update" property="gmtUpdate"/>
     </resultMap>
     <sql id="selectKey">
-    user_id,user_name,user_nick,user_pwd,email,phone_number,sex,attributes,gmt_create,gmt_update
+    user_id,user_name,user_nick,user_pwd,email,phone_number,sex,attributes,last_login_time,gmt_create,gmt_update
     </sql>
     <insert id="addUser" parameterType="com.dress.collocation.pojo.User" useGeneratedKeys="true" keyProperty="userId">
         INSERT INTO sys_user
@@ -26,6 +27,7 @@
             <if test="phoneNumber!=null">phone_number,</if>
             <if test="sex!=null">sex,</if>
             <if test="attributes!=null">attributes,</if>
+            <if test="lastLoginTime!=null">last_login_time,</if>
             <if test="gmtCreate!=null">gmt_create,</if>
             <if test="gmtUpdate!=null">gmt_update,</if>
         </trim>
@@ -38,6 +40,7 @@
             <if test="phoneNumber!=null">#{phoneNumber},</if>
             <if test="sex!=null">#{sex},</if>
             <if test="attributes!=null">#{attributes},</if>
+            <if test="lastLoginTime!=null">#{lastLoginTime},</if>
             <if test="gmtCreate!=null">#{gmtCreate},</if>
             <if test="gmtUpdate!=null">#{gmtUpdate},</if>
         </trim>
@@ -54,15 +57,23 @@
             <if test="phoneNumber!=null">phone_number=#{phoneNumber},</if>
             <if test="sex!=null">sex=#{sex},</if>
             <if test="attributes!=null">attributes=#{attributes},</if>
+            <if test="lastLoginTime!=null">last_login_time=#{lastLoginTime},</if>
             <if test="gmtCreate!=null">gmt_create=#{gmtCreate},</if>
             <if test="gmtUpdate!=null">gmt_update=#{gmtUpdate},</if>
         </set>
+        where user_id = #{userId}
     </update>
 
     <select id="getUserByUserName" resultMap="user">
         select
         <include refid="selectKey"/>
         from sys_user where user_name = #{userName}
+    </select>
+
+    <select id="getUserByUserId" resultMap="user">
+        select
+        <include refid="selectKey"/>
+        from sys_user where user_id = #{userId}
     </select>
 
     <select id="getCountByUserName" resultType="int">

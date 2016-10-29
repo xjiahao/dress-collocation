@@ -1,6 +1,7 @@
 package com.dress.collocation.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dress.collocation.bo.VerificationCodeImgBo;
 import com.dress.collocation.constants.MailConstants;
 import com.dress.collocation.dao.RedisDao;
 import com.dress.collocation.exception.SystemBizException;
@@ -48,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserRegisterVo registerUser(UserRegisterVo userRegisterVo) {
         Integer count = userDao.getCountByUserName(userRegisterVo.getUserName());
-        if (count > 0) throw new SystemBizException("该账号已被注册");
+        if (count > 0) throw new SystemBizException("该" + (userRegisterVo.getUserName().contains("@") ? "邮箱" : "手机号") + "已经被注册");
         VerificationBo verificationBo = (VerificationBo) redisDao.get(REGISTER_USERNAME + userRegisterVo.getUserName());
         if (verificationBo == null || !userRegisterVo.getVerificationCode().equals(verificationBo.getVerificationCode())) {
             throw new SystemBizException("验证码错误");
@@ -61,9 +62,9 @@ public class UserServiceImpl implements UserService {
         } else {
             user.setPhoneNumber(user.getUserName());
         }
-        Long userId = userDao.addUser(user);
+        userDao.addUser(user);
         redisDao.remove(REGISTER_USERNAME + userRegisterVo.getUserName());
-        userRegisterVo.setUserId(userId);
+        userRegisterVo.setUserId(user.getUserId());
         userRegisterVo.setPassword(null);
         userRegisterVo.setVerificationCode(null);
         return userRegisterVo;
@@ -81,7 +82,7 @@ public class UserServiceImpl implements UserService {
     public void findPwdGetVerificationCode(String userName) throws IOException, TemplateException {
         Integer count = userDao.getCountByUserName(userName);
         if (count == 0) throw new SystemBizException("该" + (userName.contains("@") ? "邮箱" : "手机号") + "未被注册");
-        sendVerificationCode(userName, MailConstants.FIND_PWD_REGISTER, FIND_PWD_USERNAME);
+        sendVerificationCode(userName, MailConstants.VERIFICATE_FIND_PWD, FIND_PWD_USERNAME);
     }
 
     @Override
@@ -89,9 +90,9 @@ public class UserServiceImpl implements UserService {
         JSONObject object = new JSONObject();
         User user = userDao.getUserByUserName(userName);
         if (user == null) throw new SystemBizException("用户不存在");
-        VerificationCodeImg verificationCodeImg = VerificationCodeUtils.buildImg();
-        redisDao.set(ERROR_PWD_CODE_USERID + user.getUserId(), new VerificationBo(verificationCodeImg.getVerificationCode(), new Date().getTime()), 60 * 1000L);
-        object.put("code", verificationCodeImg.getBase64());
+        VerificationCodeImgBo verificationCodeImgBo = VerificationCodeUtils.buildImg();
+        redisDao.set(ERROR_PWD_CODE_USERID + user.getUserId(), new VerificationBo(verificationCodeImgBo.getVerificationCode(), new Date().getTime()), 60 * 1000L);
+        object.put("code", verificationCodeImgBo.getBase64());
         return object;
     }
 
@@ -103,6 +104,7 @@ public class UserServiceImpl implements UserService {
         User newUser = new User();
         newUser.setUserNick(initUserInfoVo.getUserNick());
         newUser.setSex(initUserInfoVo.getSex());
+//        newUser.setLastLoginTime(new Date());
         userDao.updateUserByUserId(newUser);
     }
 
@@ -127,7 +129,7 @@ public class UserServiceImpl implements UserService {
                 return obj;
             }
         }
-        if (!userLoginVo.getUserName().equals(Md5Utils.MD5(userLoginVo.getPassword(), user.getUserName()))) {
+        if (!user.getUserPwd().equals(Md5Utils.MD5(userLoginVo.getPassword(), user.getUserName()))) {
             if (errorCount != null) {
                 errorCount += 1;
                 if (errorCount == 5) {
@@ -165,9 +167,10 @@ public class UserServiceImpl implements UserService {
         User newUser = new User();
         newUser.setUserId(user.getUserId());
         newUser.setUserPwd(newPassword);
-        userDao.updateUserByUserId(user);
+        userDao.updateUserByUserId(newUser);
         LOGGER.info("[用户密码重置][userId:" + user.getUserId() + "][userName:" + user.getUserName() + "]");
         redisDao.remove(FIND_PWD_USERNAME + userFindPwdVo.getUserName());
+        redisDao.remove(ERROR_PWD_USERNAME+user.getUserId());
     }
 
     /**
@@ -186,7 +189,6 @@ public class UserServiceImpl implements UserService {
             throw new SystemBizException("获取验证码过于频繁，请稍后再试");
         }
         String verificationCode = VerificationCodeUtils.buildVerificationCode();
-        redisDao.set(verificationCodeType + userName, new VerificationBo(verificationCode, new Date().getTime()), 10 * 60 * 1000L);
         if (userName.contains("@")) {
             //邮箱注册
             mailSendTask.addMailSendTask(new SimpleMail(verificationCode, mailType, userName));
@@ -194,6 +196,7 @@ public class UserServiceImpl implements UserService {
             //手机注册 暂不支持
             throw new SystemBizException("暂不支持手机号注册");
         }
+        redisDao.set(verificationCodeType + userName, new VerificationBo(verificationCode, new Date().getTime()), 10 * 60 * 1000L);
     }
 
 

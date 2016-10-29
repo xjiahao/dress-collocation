@@ -1,6 +1,6 @@
 package com.dress.collocation.util;
 
-import com.dress.collocation.vo.VerificationCodeImg;
+import com.dress.collocation.bo.VerificationCodeImgBo;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -47,8 +47,8 @@ public class VerificationCodeUtils {
      *
      * @return
      */
-    public static VerificationCodeImg buildImg() {
-        VerificationCodeImg verificationCodeImg = new VerificationCodeImg();
+    public static VerificationCodeImgBo buildImg() {
+        VerificationCodeImgBo verificationCodeImg = new VerificationCodeImgBo();
         int width = 100, height = 18;
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         Graphics g = image.getGraphics();

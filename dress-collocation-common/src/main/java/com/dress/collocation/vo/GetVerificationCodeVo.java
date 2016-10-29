@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * Time: 22:02
  * Version: 1.0
  **/
-public class GetVerificationCodeVo {
+public class GetVerificationCodeVo extends BaseVo{
 
     @NotEmpty
     private String userName;

@@ -38,4 +38,8 @@ public class Md5Utils {
         return buf.toString();
     }
 
+    public static void main(String[] args) {
+        System.out.println(MD5("111111","441542820@qq.com"));
+    }
+
 }

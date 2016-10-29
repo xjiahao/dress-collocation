@@ -8,6 +8,8 @@ import freemarker.template.TemplateException;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,12 +33,20 @@ public class SimpleMail implements Serializable {
 	
 	public SimpleMail(String verificationCode,int type ,final String userName) throws IOException, TemplateException {
 		this.userName = userName;
-		if(type == MailConstants.VERIFICATE_REGISTER){
-			//注册
-			Map<String,String> params = new HashMap<String, String>();
-			params.put("verificationCode",verificationCode);
-			this.subject = MailConstants.REGISTER_SUBJECT;
-			this.content = TemplateFactory.generateHtmlFromFtl(MailConstants.REGISTER_TEMPLATE,params);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Map<String,String> params = new HashMap<String, String>();
+		params.put("verificationCode",verificationCode);
+		params.put("date",sdf.format(new Date()));
+		switch (type){
+			case MailConstants.VERIFICATE_REGISTER :
+				this.subject = MailConstants.REGISTER_SUBJECT;
+				this.content = TemplateFactory.generateHtmlFromFtl(MailConstants.REGISTER_TEMPLATE,params);
+				break;
+			case MailConstants.VERIFICATE_FIND_PWD :
+
+				this.subject = MailConstants.FIND_PWD_SUBJECT;
+				this.content = TemplateFactory.generateHtmlFromFtl(MailConstants.FIND_PWD_TEMPLATE,params);
+				break;
 		}
 	}
 	
