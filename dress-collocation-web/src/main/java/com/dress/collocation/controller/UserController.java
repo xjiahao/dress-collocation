@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
@@ -107,6 +108,21 @@ public class UserController {
             returnObj = ResponseUtils.ErrorResponse(e);
         } catch (Exception e) {
             LOGGER.error("[用户找回密码出错][userName:" + userFindPwdVo.getUserName() + "][错误信息:" + e.getMessage() + "]", e);
+            returnObj = ResponseUtils.ErrorResponse(e);
+        }
+        return returnObj;
+    }
+
+    @ResponseBody
+    @RequestMapping("/loginCodeImg")
+    public Object getLoginVerificationCodeImg(@RequestParam String userName){
+        Object returnObj;
+        try {
+            returnObj = ResponseUtils.SuccessResponse(userService.loginGetVerificationCode(userName));
+        } catch (SystemBizException e) {
+            returnObj = ResponseUtils.ErrorResponse(e);
+        } catch (Exception e) {
+            LOGGER.error("[获取用户登录验证码图片出错][userName:" + userName + "][错误信息:" + e.getMessage() + "]", e);
             returnObj = ResponseUtils.ErrorResponse(e);
         }
         return returnObj;

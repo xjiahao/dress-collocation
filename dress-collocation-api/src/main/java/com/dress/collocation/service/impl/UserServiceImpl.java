@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
         JSONObject obj = new JSONObject();
         User user = userDao.getUserByUserName(userLoginVo.getUserName());
         if (user == null)
-            throw new SystemBizException("该" + (userLoginVo.getUserName().contains("@") ? "邮箱" : "手机号") + "已经被注册");
+            throw new SystemBizException("该" + (userLoginVo.getUserName().contains("@") ? "邮箱" : "手机号") + "未注册");
         Integer errorCount = (Integer) redisDao.get(ERROR_PWD_USERNAME + user.getUserId());
         if (userLoginVo.getVerificationCode() != null) {
             VerificationBo vo = (VerificationBo) redisDao.get(ERROR_PWD_CODE_USERID + user.getUserId());
